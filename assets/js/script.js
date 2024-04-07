@@ -1,4 +1,5 @@
 // My API key for making API calls: 8a4161e110974484d73136be7dd84581
+// The README is calling for us to use Reverse geocoding
 
 // Need to store my API key in a variable
 const APIKey = "8a4161e110974484d73136be7dd84581";
@@ -25,3 +26,7 @@ fetch(queryURL);
 
 // State
 // https://api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid={API key}
+
+// We need to use reverse geocoding as the example URL shows that it must include lat and log coordinates
+// `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${limit}&appid=${APIKey}`;
+// https://openweathermap.org/api/geocoding-api
