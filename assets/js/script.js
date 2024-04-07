@@ -16,6 +16,7 @@ const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appi
 fetch(queryURL);
 
 // This variable needs to be adjusted to store in the city variable that I created above
+// This indicates then that we need to use localStorage
 
 // What we will also want to do is specify state and country since other states and countries have the same city names
 
@@ -24,5 +25,3 @@ fetch(queryURL);
 
 // State
 // https://api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid={API key}
-
-// 
