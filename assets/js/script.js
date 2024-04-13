@@ -3,12 +3,13 @@
 
 // Need to store my API key in a variable
 const APIKey = "8a4161e110974484d73136be7dd84581";
+const searchInput2 = document.querySelector(".form-control");
+const searchButton2 = document.querySelector(".btn-primary");
+const searchHistory2 = document.querySelector(".searchedCities");
 
 // Since we want our users to be able to search by city location to find the weather
 // We need to collect the user's input to store in a variable for city
 let city;
-
-// https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={8a4161e110974484d73136be7dd84581}
 
 // Using the above URL we are going to create a new variable that will store the OpenWeather current weather data
 const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}`;
