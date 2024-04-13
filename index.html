@@ -19,13 +19,34 @@
         </nav>
     </header>
     <body>
+        <h1>
+            Search for a City
+        </h1>
+        <form>
+            <div class="row">
+                <div class="col-3 border-bottom">
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="City"
+                        aria-label="City"
+                    >
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+        <!-- This is where searched cities will display in this div -->
+        <div class="searchedCities">
+            <button>Miami</button>
+        </div>
         <!-- It looks like according to the README image we would need to make a Header to display the dashboard -->
         <!-- A form on the top left to search for a city -->
-        <!-- Nav bar with preset buttons on the left with popular city choices  -->
+        <!-- When you search it should store it in local storage and display what you searched for underneath in a div
         <!-- A div in the top middle beneath the Dashboard displaying the name of the city, date, temp. wind speeds and humidity -->
         <!-- Beneath that 5 cards for each day forecast -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="./assets/js/script.js"></script>
+        <script src="./assets/js/add-city.js"></script>
     </body>
     <footer></footer>
 </html>
