@@ -1,4 +1,16 @@
+html {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 header {
     text-align: center;
+}
+
+.row {
+    padding: 2rem;
+}
+
+.form-format {
+    padding: 5px;
 
 }
