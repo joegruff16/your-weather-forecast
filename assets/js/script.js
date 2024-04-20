@@ -4,7 +4,7 @@
 // Need to store my API key in a variable
 const APIKey = "8a4161e110974484d73136be7dd84581";
 const searchInput = document.querySelector(".form-control");
-const searchButton = document.querySelector(".btn-primary");
+const searchButton = document.querySelector(".btn-secondary");
 const searchHistory = document.querySelector(".searchedCities");
 const mainWeatherElement = document.querySelector(".card-weather");
 const weeklyContainer = document.querySelector(".weakly-weather");
