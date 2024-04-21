@@ -68,29 +68,32 @@ const searchWeather = (city) => {
                 fiveDayCard += `
                 <div class="weakly-weather-item">
                 <p class="mb-0">
-                                                ${weekDate};
-                                            </p>
-                                            <i class="mdi mdi-weather-cloudy"></i>
-                                            <p class="mb-0">
-                                            ${filteredWeek[i].main.temp};
-                                            </p>
-                                            <p class="mb-0">
-                                            ${filteredWeek[i].main.humidity};
-                                            </p>
-                                            <p class="mb-0">
-                                            ${filteredWeek[i].wind.speed};
-                                            </p>
-                                        </div>
-                                        <div class="weakly-weather-item">
-                                        <p class="mb-0">
-                                        ${weekDate};
-                                        </p>
-                                    <i class="mdi mdi-weather-hail"></i>
-                                    <p class="mb-0">
-                                    ${filteredWeek[i].main.temp};
-                                    </p>
-                                    <p class="mb-0">
-                                    ${filteredWeek[i].main.humidity};
+                ${weekDate}
+                ${filteredWeek[i].main.temp}
+                ${filteredWeek[i].main.humidity}
+                ${filteredWeek[i].wind.speed}
+                </p>
+                <i class="mdi mdi-weather-cloudy"></i>
+                <p class="mb-0">
+                </p>
+                </div>
+                <p class="mb-1">
+                ${filteredWeek[i].main.humidity};
+                </p>
+                <p class="mb-0">
+                ${filteredWeek[i].wind.speed};
+                </p>
+                </div>
+                <div class="weakly-weather-item">
+                <p class="mb-0">
+                ${weekDate};
+                </p>
+                <i class="mdi mdi-weather-hail"></i>
+                <p class="mb-0">
+                ${filteredWeek[i].main.temp};
+                </p>
+                <p class="mb-0">
+                ${filteredWeek[i].main.humidity};
                                     </p>
                                     <p class="mb-0">
                                     ${filteredWeek[i].wind.speed};
@@ -110,10 +113,9 @@ const searchWeather = (city) => {
                                             ${filteredWeek[i].wind.speed};
                                             </p>
                                         </div>
-                                        </div>
                                     </div>
-                `
-                weeklyContainer.innerHTML = fiveDayCard
+    `
+                weeklyContainer.innerHTML = fiveDayCard;
             }
         })
     });
@@ -144,11 +146,15 @@ const addCity = () => {
         return;
     const newCity = document.createElement("button");
     newCity.innerText = value;
-
     searchHistory.appendChild(newCity);
     searchInput.value = "";
-
 }
+
+// cityButton.addEventListener("click", (event) => {
+//     event.preventDefault();
+
+// })
+
 
 searchButton.addEventListener("click", (event) => {
     event.preventDefault();
@@ -156,3 +162,4 @@ searchButton.addEventListener("click", (event) => {
     searchWeather(city)
     addCity();
 })
+
