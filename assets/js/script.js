@@ -4,7 +4,7 @@
 // Need to store my API key in a variable
 const APIKey = "8a4161e110974484d73136be7dd84581";
 const searchInput = document.querySelector(".form-control");
-const searchButton = document.querySelector(".btn-secondary");
+const searchButton = document.querySelector(".btn-outline-secondary");
 const searchHistory = document.querySelector(".searchedCities");
 const mainWeatherElement = document.querySelector(".card-weather");
 const weeklyContainer = document.querySelector(".weakly-weather");
@@ -67,20 +67,51 @@ const searchWeather = (city) => {
                 const weekDate = new Date(filteredWeek[i].dt_txt).toLocaleDateString().split("")[0]
                 fiveDayCard += `
                 <div class="weakly-weather-item">
-                                                <p class="mb-0">
-                                                    ${weekDate}
-                                                </p>
-                                                <i class="mdi mdi-weather-cloudy"></i>
-                                                <p class="mb-0">
-                                                    ${filteredWeek[i].main.temp}
-                                                </p>
-                                                <p class="mb-0">
-                                                ${filteredWeek[i].main.humidity}
-                                                </p>
-                                                <p class="mb-0">
-                                                ${filteredWeek[i].wind.speed}
+                <p class="mb-0">
+                                                ${weekDate};
                                             </p>
-                                            </div>
+                                            <i class="mdi mdi-weather-cloudy"></i>
+                                            <p class="mb-0">
+                                            ${filteredWeek[i].main.temp};
+                                            </p>
+                                            <p class="mb-0">
+                                            ${filteredWeek[i].main.humidity};
+                                            </p>
+                                            <p class="mb-0">
+                                            ${filteredWeek[i].wind.speed};
+                                            </p>
+                                        </div>
+                                        <div class="weakly-weather-item">
+                                        <p class="mb-0">
+                                        ${weekDate};
+                                        </p>
+                                    <i class="mdi mdi-weather-hail"></i>
+                                    <p class="mb-0">
+                                    ${filteredWeek[i].main.temp};
+                                    </p>
+                                    <p class="mb-0">
+                                    ${filteredWeek[i].main.humidity};
+                                    </p>
+                                    <p class="mb-0">
+                                    ${filteredWeek[i].wind.speed};
+                                    </p>
+                                        </div>
+                                        <p class="mb-0">
+                                                ${weekDate};
+                                            </p>
+                                            <i class="mdi mdi-weather-partly-cloudy"></i>
+                                            <p class="mb-0">
+                                            ${filteredWeek[i].main.temp};
+                                            </p>
+                                            <p class="mb-0">
+                                            ${filteredWeek[i].main.humidity};
+                                            </p>
+                                            <p class="mb-0">
+                                            ${filteredWeek[i].wind.speed};
+                                            </p>
+                                        </div>
+                                        </div>
+                                    </div>
                 `
                 weeklyContainer.innerHTML = fiveDayCard
             }
