@@ -62,7 +62,8 @@ const searchWeather = (city) => {
         }).then((weeklyData) => {
             const filteredWeek = weeklyData.list.filter(day => day.dt_txt.includes("12:00:00"))
             console.log(filteredWeek)
-            let fiveDayCard = ""
+            let fiveDayCard;
+
             for (let i = 0; i < filteredWeek.length; i++) {
                 const weekDate = new Date(filteredWeek[i].dt_txt).toLocaleDateString().split("")[0]
                 fiveDayCard += `
@@ -120,6 +121,19 @@ const searchWeather = (city) => {
         })
     });
 }
+// let fiveDayCard = "";
+// for (let i = 0; i < filteredWeek.length; i++) {
+//     const weekDate = new Date(filteredWeek[i].dt_txt).toLocaleDateString().split("")[0]
+//     fiveDayCard += `
+//     <div class="weakly-weather-item">
+//       <p class="mb-0">${weekDate}</p>
+//       <p class="mb-0">Temp: ${filteredWeek[i].main.temp}</p>
+//       <p class="mb-0">Humidity: ${filteredWeek[i].main.humidity}</p>
+//       <p class="mb-0">Wind Speed: ${filteredWeek[i].wind.speed}</p>
+//     </div>
+//     `;
+//   }
+//   weeklyContainer.innerHTML = fiveDayCard;
 // Using the above URL we are going to create a new variable that will store the OpenWeather current weather data
 
 // This variable needs to be adjusted to store in the city variable that I created above
@@ -148,8 +162,13 @@ const addCity = () => {
     newCity.innerText = value;
     searchHistory.appendChild(newCity);
     searchInput.value = "";
-}
 
+    newCity.addEventListener("click", (event) => {
+        event.preventDefault();
+        let city = newCity.innerText;
+        searchWeather(city);
+    });
+}
 // cityButton.addEventListener("click", (event) => {
 //     event.preventDefault();
 
