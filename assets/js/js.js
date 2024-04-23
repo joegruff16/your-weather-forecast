@@ -26,9 +26,9 @@ searchButton.addEventListener("click", (event) => {
 
 //5a - current day, create one card for the cuurent day.  declare the data at the top of the function, and then create the card
 
-//5b  - forecast is the 5 day, two parts: First is getting the tile  to display, clear the area of the scection/container for the 5day, then a for loop will follow.
+//5b  - forecast is the 5 day, two parts: First is getting the tile to display, clear the area of the scection/container for the 5day, then a for loop will follow.
 
-//5b - a this is the function for the card, striclty -- which will be called out/ evoked in the for loop.  Copy the card created in current and reuse in this function
+//5b - a this is the function for the card, strictly -- which will be called out/ evoked in the for loop.  Copy the card created in current and reuse in this function
 
-//A fore loop will process one thing /index/ at a time -- but it will go thru and process the entire array.,  logic in a form loop is always for 1.
+//A for loop will process one thing /index/ at a time -- but it will go thru and process the entire array.,  logic in a form loop is always for 1.
 
