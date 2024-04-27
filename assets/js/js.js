@@ -51,13 +51,14 @@ const searchWeather = (location) => {
         return response.json()
     }).then((data) => {
         console.log(data);
-        displayCurrentDay(data.list[0]);
+        // displayCurrentDay(data.list[0]);
         forecastDisplay(data.list)
     })
 }
 // Tutor assisted with help to display current day
 // This is where we will be storing data from our fetch into variables 
 const tempDegree = weather.main.temp;
+console.log(tempDegree);
 const windSpeed = weather.wind.speed;
 const humidity = weather.main.humidity;
 const mainIconUrl = `https://openweathermap.org/img/w/${weather.weather[0].icon}.png`;
@@ -96,7 +97,7 @@ mainWeatherElement.innerHTML = '';
 
 // Display city data onto card
 mainWeatherElement.append(cardWeather);
-
+console.log(cardWeather);
 
 // function displayCurrentDay(weather) {
 //     console.log(weather);
