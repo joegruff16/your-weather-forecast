@@ -64,6 +64,39 @@ const mainIconUrl = `https://openweathermap.org/img/w/${weather.weather[0].icon}
 const displayIcon = weather.weather[0].description || weather[0].main;
 
 // Dynamically create HTML elements to display after search input is made for the current day
+const cardWeather = document.createElement('div');
+const mainCard = document.createElement('div');
+const mainHeading = document.createElement('h2');
+const weatherIcon = document.createElement('img')
+const tempDegreeEl = document.createElement('h2');
+const windSpeedEl = document.createElement('p');
+const humidityEl = document.createElement('p');
+
+cardWeather.setAttribute('class', 'card-weather');
+mainCard.setAttribute('class', 'main-card');
+cardWeather.append(mainCard);
+
+mainHeading.setAttribute('class', 'current-city');
+tempDegreeEl.setAttribute('class', 'todays-temp');
+windSpeedEl.setAttribute('class', 'today-wind');
+humidityEl.setAttribute('class', 'today-humidity');
+
+mainHeading.textContent = `${city} (${date})`;
+weatherIcon.setAttribute('src', mainIconUrl);
+weatherIcon.setAttribute('alt', displayIcon);
+weatherIcon.setAttribute('class', 'image-today');
+mainHeading.append(weatherIcon);
+tempDegreeEl.textContent = `Temp: ${tempDegree}°F`;
+windSpeedEl.textContent = `Wind: ${windSpeed} MPH`;
+humidityEl.textContent = `Humidity: ${humidity} %`;
+mainCard.append(mainHeading, tempDegreeEl, windSpeedEl, humidityEl);
+
+// Clear contents of the card
+mainWeatherElement.innerHTML = '';
+
+// Display city data onto card
+mainWeatherElement.append(cardWeather);
+
 
 // function displayCurrentDay(weather) {
 //     console.log(weather);
