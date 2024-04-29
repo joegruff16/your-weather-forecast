@@ -47,11 +47,95 @@ function handleSearchHistory(e) {
     getCoordinates(search);
 
 }
+
+function displayCurrentDay(weather) {
+
+    // Tutor assisted with help to display current day
+    // This is where we will be storing data from our fetch into variables 
+    const tempDegree = weather.main.temp;
+    console.log(tempDegree);
+    const windSpeed = weather.wind.speed;
+    const humidity = weather.main.humidity;
+    const mainIconUrl = `https://openweathermap.org/img/w/${weather.weather[0].icon}.png`;
+    const displayIcon = weather.weather[0].description || weather[0].main;
+
+    // Dynamically create HTML elements to display after search input is made for the current day
+    const cardWeather = document.createElement('div'); // This is the card
+    const mainCard = document.createElement('div'); // This is the card body
+    const mainHeading = document.createElement('h2');
+    const weatherIcon = document.createElement('img')
+    const tempDegreeEl = document.createElement('h2');
+    const windSpeedEl = document.createElement('p');
+    const humidityEl = document.createElement('p');
+
+    cardWeather.setAttribute('class', 'card-weather');
+    mainCard.setAttribute('class', 'main-card');
+    cardWeather.append(mainCard);
+
+    mainHeading.setAttribute('class', 'current-city');
+    tempDegreeEl.setAttribute('class', 'todays-temp');
+    windSpeedEl.setAttribute('class', 'today-wind');
+    humidityEl.setAttribute('class', 'today-humidity');
+
+    mainHeading.textContent = `${city} (${date})`;
+    weatherIcon.setAttribute('src', mainIconUrl);
+    weatherIcon.setAttribute('alt', displayIcon);
+    weatherIcon.setAttribute('class', 'image-today');
+    mainHeading.append(weatherIcon);
+    tempDegreeEl.textContent = `Temp: ${tempDegree}°F`;
+    windSpeedEl.textContent = `Wind: ${windSpeed} MPH`;
+    humidityEl.textContent = `Humidity: ${humidity} %`;
+    mainCard.append(mainHeading, tempDegreeEl, windSpeedEl, humidityEl);
+
+    // Clear contents of the card
+    mainWeatherElement.innerHTML = '';
+
+    // Display city data onto card
+    mainWeatherElement.append(cardWeather);
+    console.log(cardWeather);
+}
+
+//4. go to the 2nd fetch to get the weather, applying the lat and lon of the geo as variables. 
+let searchWeather = (location) => {
+    console.log(location);
+    let { lat, lon } = location;
+    // const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIKey}`;
+    const queryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}`
+    fetch(queryURL).then(function (response) {
+        return response.json()
+    }).then(function (data) {
+        // console.log(data);
+        displayCurrentDay(data.list[0]);
+        forecastDisplay(data.list)
+    })
+}
+
+//3 take the input and get your first fetch, coordinates of the geo
+function getCoordinates(city) {
+
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${APIKey}`)
+        .then(function (response) {
+            return response.json()
+        }).then(function (data) {
+            console.log(data);
+            // searchWeather(data[0]);
+        })
+}
+
+function forecastDisplay(weather) {
+    const fiveDayContainer = document.querySelector("five-day-card");
+    const headerEl = document.createElement("h4");
+    headerEl.textContent = "5 Day Forecast";
+    fiveDayContainer.append(headerEl);
+    // Clear contents of card
+    weeklyContainer.innerHTML = "";
+}
+
 //1. event listener, from the search form
 
-searchButton.addEventListener("click", addCity);
+searchButton.addEventListener('click', addCity);
 
-//2. validate the input box
+// 2. validate the input box
 function addCity(event) {
     if (!searchInput.value) {
         return;
@@ -61,76 +145,4 @@ function addCity(event) {
     const valueEl = searchInput.value;
     searchWeather(valueEl)
     searchInput.value = "";
-}
-
-
-// Tutor assisted with help to display current day
-// This is where we will be storing data from our fetch into variables 
-const tempDegree = weather.main.temp;
-console.log(tempDegree);
-const windSpeed = weather.wind.speed;
-const humidity = weather.main.humidity;
-const mainIconUrl = `https://openweathermap.org/img/w/${weather.weather[0].icon}.png`;
-const displayIcon = weather.weather[0].description || weather[0].main;
-
-// Dynamically create HTML elements to display after search input is made for the current day
-const cardWeather = document.createElement('div');
-const mainCard = document.createElement('div');
-const mainHeading = document.createElement('h2');
-const weatherIcon = document.createElement('img')
-const tempDegreeEl = document.createElement('h2');
-const windSpeedEl = document.createElement('p');
-const humidityEl = document.createElement('p');
-
-cardWeather.setAttribute('class', 'card-weather');
-mainCard.setAttribute('class', 'main-card');
-cardWeather.append(mainCard);
-
-mainHeading.setAttribute('class', 'current-city');
-tempDegreeEl.setAttribute('class', 'todays-temp');
-windSpeedEl.setAttribute('class', 'today-wind');
-humidityEl.setAttribute('class', 'today-humidity');
-
-mainHeading.textContent = `${city} (${date})`;
-weatherIcon.setAttribute('src', mainIconUrl);
-weatherIcon.setAttribute('alt', displayIcon);
-weatherIcon.setAttribute('class', 'image-today');
-mainHeading.append(weatherIcon);
-tempDegreeEl.textContent = `Temp: ${tempDegree}°F`;
-windSpeedEl.textContent = `Wind: ${windSpeed} MPH`;
-humidityEl.textContent = `Humidity: ${humidity} %`;
-mainCard.append(mainHeading, tempDegreeEl, windSpeedEl, humidityEl);
-
-// Clear contents of the card
-mainWeatherElement.innerHTML = '';
-
-// Display city data onto card
-mainWeatherElement.append(cardWeather);
-console.log(cardWeather);
-
-//4. go to the 2nd fetch to get the weather, applying the lat and lon of the geo as variables. 
-let searchWeather = (location) => {
-    console.log(location);
-    let { lat, lon } = location;
-    // const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIKey}`;
-    const queryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}`
-    fetch(queryURL).then((response) => {
-        return response.json()
-    }).then((data) => {
-        console.log(data);
-        // displayCurrentDay(data.list[0]);
-        forecastDisplay(data.list)
-    })
-}
-
-//3 take the input and get your first fetch, coordinates of the geo
-function getCoordinates(city) {
-
-    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${APIKey}`)
-        .then((response) => {
-            return response.json()
-        }).then((data) => {
-            console.log(data);
-            // searchWeather(data[0]);
-        })
 }
