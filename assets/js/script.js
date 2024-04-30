@@ -1,13 +1,22 @@
-// My API key for making API calls: 8a4161e110974484d73136be7dd84581
-// The README is calling for us to use Reverse geocoding
 
+let searchHistory = [];
 // Need to store my API key in a variable
 const APIKey = "8a4161e110974484d73136be7dd84581";
-const searchInput = document.querySelector(".form-control");
-const searchButton = document.querySelector(".btn-outline-secondary");
-const searchHistory = document.querySelector(".searchedCities");
-const mainWeatherElement = document.querySelector(".card-weather");
-const weeklyContainer = document.querySelector(".weakly-weather");
+
+// HTML DOM elements
+const searchForm = document.querySelector('#search-form');
+const searchInput = document.querySelector('#search-input');
+const todayContainer = document.querySelector('#today');
+const forecastContainer = document.querySelector('#forecast');
+const searchHistoryContainer = document.querySelector('#history');
+
+// Added timezone plugins day.js 
+// Tutor assisted with help to display the current day
+dayjs.extend(window.dayjs_plugin_utc);
+dayjs.extend(window.dayjs_plugin_timezone);
+
+
+
 
 // Since we want our users to be able to search by city location to find the weather
 // We need to collect the user's input to store in a variable for city
