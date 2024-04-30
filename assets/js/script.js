@@ -59,6 +59,32 @@ function renderCurrentWeather(city, weather) {
     todayContainer.append(card);
 
 }
+// Define a specific time of day when weather forecast is displayed
+function displayForecast(dailyForecast) {
+    // Create timestamps for beginning and end of 5 Day Weather Forecast
+    const startDate = dayjs().add(1, 'day').startOf('day').unix();
+    const endDate = dayjs().add(6, 'day').startOf('day').unix();
+
+    const headingCol = document.createElement('div');
+    const heading = document.createElement('h4');
+
+    headingCol.setAttribute('class', 'col-12');
+    heading.textContent = '5 Day Forecast'
+    headingCol.append(heading);
+
+    forecastContainer.innerHTML = '';
+    forecastContainer.append(headingCol);
+
+    for (let i = 0; i < dailyForecast.length; i++) {
+        if (dailyForecast[i].dt >= startDate && dailyForecast[i].dt < endDate) {
+            // Filters through data to return the data that for noon of each day
+            if (dailyForecast[i].dt_txt.slice(11, 13) == '12') {
+                displayForecastCard(dailyForecast[i]);
+            }
+        }
+    }
+
+}
 const searchWeather = (city) => {
     console.log(city)
     const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIKey}`;
