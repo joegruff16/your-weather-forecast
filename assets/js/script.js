@@ -85,6 +85,49 @@ function displayForecast(dailyForecast) {
     }
 
 }
+
+// While the loop is iterating through the arrray of daily weather for the 5 day Forecast, the forecast card is called everytime and all the data of the card is made for that specific iteration day of the forecast
+function displayForecastCard(forecast) {
+    // These are the variables with need from the WeatherAPI
+    const iconLink = `https://openweathermap.org/img/w/${weather.weather[0].icon}.png`;
+    const iconDesc = weather.weather[0].description || weather[0].main;
+    const temp = weather.main.temp;
+    const windSpeed = weather.wind.speed;
+    const humidity = weather.main.humidity;
+
+    // Create card elements
+    const col = docusment.createElement('div');
+    const card = document.createElement('div');
+    const cardBody = document.createElement('div');
+    const cardHeading = document.createElement('h5');
+    const weatherImg = document.createElement('img');
+    const tempEl = document.createElement('p');
+    const windEl = document.createElement('p');
+    const humidityEl = document.createElement('p');
+
+    col.apped(card);
+    card.append(cardBody);
+    cardBody.append(cardHeading, weatherImg, tempEl, windEl, humidityEl);
+
+    col.setAttribute('class', 'col-md');
+    col.classList.add('five-day-card');
+    card.setAttribute('class', 'card bg-primary h-100 text-white');
+    cardBody.setAttribute('class', 'card-body p-2');
+    cardHeading.setAttribute('class', 'card-title');
+    tempEl.setAttribute('class', 'card-text');
+    windEl.setAttribute('class', 'card-text');
+    humidityEl.setAttribute('class', 'card-text');
+
+    // Add data to elements
+    cardHeading.textContent = dayjs(forecast.dt_txt).format('M/D/YYYY');
+    weatherImg.setAttribute('src', iconLink);
+    weatherImg.setAttribute('alt', iconDesc);
+    tempEl.textContent = `Temp: ${temp}°F`;
+    windEl.textContent = `Wind: ${windSpeed} MPH`;
+    humidityEl.textContent = `Humidity: ${humidity}%`;
+
+    forecastContainer.append(col);
+}
 const searchWeather = (city) => {
     console.log(city)
     const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIKey}`;
