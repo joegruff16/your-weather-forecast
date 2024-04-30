@@ -13,128 +13,70 @@
         <link rel="stylesheet" href="./assets/css/weather.css">
         <title>Your Weather Forecast</title>
     </head>
-    <!-- Blue Header at the top with centered text -->
-    <header>
-        <div class="mx-auto h1" style="width: 600px;">
-            <span class="bg-secondary text-light mb-0">Your Weather Forecast</span>
-        </div>
-    </header>
     <body>
-        <div class="container-fluid">
+        <!-- Blue Header at the top with centered text -->
+        <header class="container-fluid text-center text-white bg-dark p-2 weather-header">
+            <h1>
+                Your Weather Forecast
+            </h1>
+        </header>
+        <div class="container-fluid" style="max-width: 1400px">
             <div class="row">
-                <div class="col-3">
-                    <h1 class="display-3">
+                <aside class="col-lg-3 pb-3">
+                    <h2 id="form-heading" class="mt-1 h3 form-label">
                         Search for a City
-                    </h1>
+                    </h2>
                     <!-- A form on the top left to search for a city -->
-                    <form class="form-format">
-                        <input type="text" class="form-control">
-                        <div class="pt-2"></div>
-                        <button type="submit" class="btn btn-outline-secondary">Submit</button>
-                    </form>
-                </div>
-                <!-- This is where searched cities will display in this div -->
-                <div class="searchedCities">
-                    <button>Miami</button>
-                </div>
-            </div>
-            <!-- It looks like according to the README image we would need to make a Header to display the dashboard -->
-            <!-- When you search it should store it in local storage and display what you searched for underneath in a div
-        <!-- A div in the top middle beneath the Dashboard displaying the name of the city, date, temp. wind speeds and humidity -->
-            <!-- Beneath that 5 cards for each day forecast -->
-            <!-- Weather widget -->
-            <div class="col-9">
-                <div class="page-content page-container" id="page-content">
-                    <div class="padding">
-                        <div class="row container d-flex justify-content-center">
-                            <div class="col-lg-8 grid-margin stretch-card">
-                                <!--weather card -->
-                                <div class="card card-weather">
-                                    <div class="card-body main-card">
-                                        <div class="weather-date-location">
-                                            <h3 class="current-city">Miami</h3>
-                                            <p class="text-gray">
-                                                <span class="weather-date">25 March, 2019</span>
-                                            </p>
-                                        </div>
-                                        <div class="weather-data d-flex">
-                                            <div class="mr-auto">
-                                                <h4 class="display-3 todays-temp">
-                                                    32
-                                                    <span class="symbol">&deg;</span>
-                                                    F
-                                                </h4>
-                                                <img
-                                                    src="./assets/images/cloudy.png"
-                                                    class="image-today"
-                                                    alt=""
-                                                    height="50px"
-                                                    width="50px"
-                                                >
-                                                <p class="today-humidity">humidity</p>
-                                                <p class="today-wind">windy</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body p-0 five-day-card"></div>
-                                    <!--weather card ends-->
-                                    <div class="d-flex weakly-weather">
-                                        <div class="weakly-weather-item">
-                                            <p class="mb-0">
-                                                Sun
-                                            </p>
-                                            <i class="mdi mdi-weather-cloudy"></i>
-                                            <p class="mb-0">
-                                                30&deg;
-                                            </p>
-                                        </div>
-                                        <div class="weakly-weather-item">
-                                            <p class="mb-1">
-                                                Mon
-                                            </p>
-                                            <i class="mdi mdi-weather-hail"></i>
-                                            <p class="mb-0">
-                                                31&deg;
-                                            </p>
-                                        </div>
-                                        <div class="weakly-weather-item">
-                                            <p class="mb-1">
-                                                Tue
-                                            </p>
-                                            <i class="mdi mdi-weather-partlycloudy"></i>
-                                            <p class="mb-0">
-                                                28&deg;
-                                            </p>
-                                        </div>
-                                        <div class="weakly-weather-item">
-                                            <p class="mb-1">
-                                                Wed
-                                            </p>
-                                            <i class="mdi mdi-weather-pouring"></i>
-                                            <p class="mb-0">
-                                                30&deg;
-                                            </p>
-                                        </div>
-                                        <div class="weakly-weather-item">
-                                            <p class="mb-1">
-                                                Thu
-                                            </p>
-                                            <i class="mdi mdi-weather-pouring"></i>
-                                            <p class="mb-0">
-                                                29&deg;
-                                            </p>
-                                        </div>
-                                    </div>
+                    <form id="search-form" class="form">
+                        <div class="form-inline form-group">
+                            <div class="input-group">
+                                <input
+                                    class="form-input weather-search"
+                                    type="text"
+                                    id="search-input"
+                                    placeholder="San Diego"
+                                    aria-labelledby="form-heading"
+                                    aria-controls="today forecast"
+                                >
+                                <div class="input-group-append">
+                                    <button
+                                        type="submit"
+                                        class="btn search-button"
+                                        id="search-button"
+                                        aria-label="submit search"
+                                    >Submit</button>
+                                    <hr class="hr weather-hr">
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+                    <!-- Search History will be displayed here from localStorage -->
+                    <div class="list-group" id="history"></div>
+                </aside>
+                <!-- This is the end of the first col -->
+                <div class="col-lg-9 pb-3">
+                    <!-- The current weather will be displayed here -->
+                    <section
+                        id="today"
+                        class="mt-3"
+                        role="region"
+                        aria-live="polite"
+                    ></section>
+                    <!-- 5 Day Forecast will be displayed here -->
+                    <section
+                        id="forecast"
+                        class="row mt-3"
+                        role="region"
+                        aria-live="polite"
+                    ></section>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="./assets/js/new-script.js"></script>
-</body>
-<footer></footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js" integrity="sha512-0fcCRl828lBlrSCa8QJY51mtNqTcHxabaXVLPgw/jPA5Nutujh6CbTdDgRzl9aSPYW/uuE7c4SffFUQFBAy6lg==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/utc.min.js" integrity="sha512-m00bfmYnAl3plEBlQfeQUhw/U2uvmw29V2+jxSWpAjankMWS+zAsjezbKWDEJNXqWq9o9qQZSOiA2RKDpa4D5w==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/plugin/timezone.min.js" integrity="sha512-pslqxxHAYPCxaSeFSmXXxDkLejD5dbFVC66aiVq0z4v7VTJBU+wqcG1OpNh4p3MjS2D6NCwz/H2QmSc7dXxryg==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="./assets/js/new-script.js"></script>
+    </body>
+    <footer></footer>
 </html>
