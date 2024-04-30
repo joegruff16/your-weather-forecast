@@ -18,9 +18,47 @@ dayjs.extend(window.dayjs_plugin_timezone);
 
 
 
-// Since we want our users to be able to search by city location to find the weather
-// We need to collect the user's input to store in a variable for city
-// let city;
+// This is the section where we store data from our fetch into varibales
+function renderCurrentWeather(city, weather) {
+    const date = dayjs().format('M/D/YYYY');
+
+    const temp = weather.main.temp;
+    const windSpeed = weather.wind.speed;
+    const humidity = weather.main.humidity;
+    const iconLink = `https://openweathermap.org/img/w/${weather.weather[0].icon}.png`;
+    const iconDesc = weather.weather[0].description || weather[0].main;
+
+    const card = document.createElement('div');
+    const cardBody = document.createElement('div');
+    const heading = document.createElement('h2');
+    const weatherImg = document.createElement('img');
+    const tempEl = document.createElement('p');
+    const windEl = document.createElement('p');
+    const humidityEl = document.createElement('p');
+
+    card.setAttribute('class', 'card');
+    cardBody.setAttribute('class', 'card-body');
+    card.append(cardBody);
+
+    heading.setAttribute('class', 'h3 card-title');
+    tempEl.setAttribute('class', 'card-text');
+    windEl.setAttribute('class', 'card-text');
+    humidityEl.setAttribute('class', 'card-text');
+
+    heading.textContent = `${city} (${date})`;
+    weatherImg.setAttribute('src', iconLink);
+    weatherImg.setAttribute('alt', iconDesc);
+    weatherImg.setAttribute('class', 'weather-img');
+    heading.append(weatherImg);
+    tempEl.textContent = `Temp: ${temp}°F`;
+    windEl.textContent = `Wind: ${windSpeed} MPH`;
+    humidityEl.textContent = `Humidity: ${humidity}%`;
+    cardBody.append(heading, tempEl, windEl, humidityEl);
+
+    todayContainer.innerHTML = '';
+    todayContainer.append(card);
+
+}
 const searchWeather = (city) => {
     console.log(city)
     const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIKey}`;
