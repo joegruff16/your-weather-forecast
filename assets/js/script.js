@@ -136,6 +136,46 @@ function renderItems(city, data) {
 }
 
 // 2nd Fetch to get the weather
+function fetchWeather(location) {
+    console.log(location)
+    let { lat, lon } = location;
+    var city = location.none;
+
+    const queryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${APIKey}`;
+
+    fetch(queryURL)
+        .then(function (res) {
+            return res.json();
+        })
+        .then(function (data) {
+            renderItems(city, data);
+        })
+        .catch(function (err) {
+            console.error(err);
+        })
+}
+
+// Gather the input to get your first fetch the coordinates of the geo
+function fetchGeo(search) {
+    const apiUrl = `  https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${APIKey}`;
+
+    fetch(apiUrl)
+        .then(function (res) {
+            return res.json();
+        })
+        .then(function (data) {
+            if (!data[0]) {
+                alert('Location not found');
+            } else {
+                appendToHistory(search);
+                fetchWeather(data[0]);
+            }
+        })
+        .catch(function (err) {
+            console.error(err);
+        });
+
+}
 const searchWeather = (city) => {
     console.log(city)
     const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIKey}`;
