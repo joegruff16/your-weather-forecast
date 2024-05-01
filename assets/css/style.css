@@ -6,6 +6,7 @@ html {
 /* Override Bootstrap Font */
 :root {
     --bs-font-sans-serif: font-family: Impact, Haettenschweiler, 'Arial Narrow Bold';
+    /* font-weight: 300; */
 }
 
 /* Top Navbar Title centered */

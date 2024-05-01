@@ -209,6 +209,27 @@ function displaySearchHistory() {
 
     }
 }
+// This function will update history in local storage to display history 
+function appendToHistory(search) {
+    // If the user doesn't input a city return this function
+    if (searchHistory.indexOf(search) !== -1) {
+        return;
+    }
+    searchHistory.push(search);
+
+    localStorage.setItem('search-history', JSON.stringify(searchHistory));
+    displaySearchHistory();
+}
+
+// Function to get search history from local storage -- this is persistent data
+function initializeSearchHistory() {
+    const storedHistory = localStorage.getItem('search-history');
+    if (storedHistory) {
+        searchHistory = JSON.parse(storedHistory);
+    }
+    displaySearchHistory();
+}
+initializeSearchHistory();
 
 
 // let fiveDayCard = "";
