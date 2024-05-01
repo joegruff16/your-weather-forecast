@@ -14,7 +14,7 @@ header {
 }
 
 /* Buttons of cities displayed after selecting the submit button*/
-.searchedCities {}
+.list-group {}
 
 .row {
     padding: 2rem;
