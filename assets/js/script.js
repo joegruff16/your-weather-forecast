@@ -128,6 +128,14 @@ function displayForecastCard(forecast) {
 
     forecastContainer.append(col);
 }
+
+// Tutot assisted a clearer way to show how the data is dispered for each function to display the current weather and forecast
+function renderItems(city, data) {
+    renderCurrentWeather(city, data.list[0], data.city.timezone);
+    displayForecast(data.list);
+}
+
+// 2nd Fetch to get the weather
 const searchWeather = (city) => {
     console.log(city)
     const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIKey}`;
