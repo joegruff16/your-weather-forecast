@@ -157,7 +157,7 @@ function fetchWeather(location) {
 
 // Gather the input to get your first fetch the coordinates of the geo
 function fetchGeo(search) {
-    const apiUrl = `  https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${APIKey}`;
+    const apiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=5&appid=${APIKey}`;
 
     fetch(apiUrl)
         .then(function (res) {
@@ -174,117 +174,43 @@ function fetchGeo(search) {
         .catch(function (err) {
             console.error(err);
         });
-
 }
-const searchWeather = (city) => {
-    console.log(city)
-    const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIKey}`;
 
-    fetch(queryURL).then((response) => {
-        return response.json()
-    }).then((data) => {
-        console.log(data)
-        const mainIcon = data.weather[0].icon
-        const iconUrl = `https://openweathermap.org/img/wn/${mainIcon}.png`
-        const mainDate = new Date(data.dt * 1000).toLocaleDateString()
-        console.log(mainDate)
-        let mainCard = `
-        <div class="card-body main-card">
-                                        <div class="weather-date-location">
-                                            <h3 class="current-city">${data.name}</h3>
-                                            <p class="text-gray">
-                                                <span class="weather-date">${mainDate}</span>
-                                            </p>
-                                        </div>
-                                        <div class="weather-data d-flex">
-                                            <div class="mr-auto">
-                                                <h4 class="display-3 todays-temp">
-                                                   temp: ${data.main.temp}
-                                                    <span class="symbol">&deg;</span>
-                                                    F
-                                                </h4>
-                                                <img
-                                                    src="${iconUrl}"
-                                                    class="image-today"
-                                                    height="50px"
-                                                    width="50px"
-                                                >
-                                                <p class="today-humidity">humidity: ${data.main.humidity}</p>
-                                                <p class="today-wind">wind speed: ${data.wind.speed}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-        `
-        mainWeatherElement.innerHTML = mainCard;
-        const lat = data.coord.lat
-        const lon = data.coord.lon
+// Validate the input box
+function handleSearchFormSubmit(e) {
+    if (!searchInput.value) {
+        return;
+    }
 
-        fetch(`
-        https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${APIKey}
-        `).then((response) => {
-            return response.json()
-        }).then((weeklyData) => {
-            const filteredWeek = weeklyData.list.filter(day => day.dt_txt.includes("12:00:00"))
-            console.log(filteredWeek)
-            let fiveDayCard;
-
-            for (let i = 0; i < filteredWeek.length; i++) {
-                const weekDate = new Date(filteredWeek[i].dt_txt).toLocaleDateString().split("")[0]
-                fiveDayCard += `
-                <div class="weakly-weather-item">
-                <p class="mb-0">
-                ${weekDate}
-                ${filteredWeek[i].main.temp}
-                ${filteredWeek[i].main.humidity}
-                ${filteredWeek[i].wind.speed}
-                </p>
-                <i class="mdi mdi-weather-cloudy"></i>
-                <p class="mb-0">
-                </p>
-                </div>
-                <p class="mb-1">
-                ${filteredWeek[i].main.humidity};
-                </p>
-                <p class="mb-0">
-                ${filteredWeek[i].wind.speed};
-                </p>
-                </div>
-                <div class="weakly-weather-item">
-                <p class="mb-0">
-                ${weekDate};
-                </p>
-                <i class="mdi mdi-weather-hail"></i>
-                <p class="mb-0">
-                ${filteredWeek[i].main.temp};
-                </p>
-                <p class="mb-0">
-                ${filteredWeek[i].main.humidity};
-                                    </p>
-                                    <p class="mb-0">
-                                    ${filteredWeek[i].wind.speed};
-                                    </p>
-                                        </div>
-                                        <p class="mb-0">
-                                                ${weekDate};
-                                            </p>
-                                            <i class="mdi mdi-weather-partly-cloudy"></i>
-                                            <p class="mb-0">
-                                            ${filteredWeek[i].main.temp};
-                                            </p>
-                                            <p class="mb-0">
-                                            ${filteredWeek[i].main.humidity};
-                                            </p>
-                                            <p class="mb-0">
-                                            ${filteredWeek[i].wind.speed};
-                                            </p>
-                                        </div>
-                                    </div>
-    `
-                weeklyContainer.innerHTML = fiveDayCard;
-            }
-        })
-    });
+    e.preventDefault();
+    const search = searchInput.value.trim();
+    fetchGeo(search);
+    searchInput.value = '';
 }
+
+// Search form event listener
+searchForm.addEventListener('submit', handleSearchFormSubmit);
+
+// This function will display the search history list
+
+function displaySearchHistory() {
+    searchHistoryContainer.innerHTML = '';
+
+    // We need an array to count down to the most recent that will display on top
+    for (let i = searchHistory.length - 1; i >= 0; i--) {
+        const btn = document.createElement('button');
+        btn.setAttribute('type', 'button');
+        btn.setAttribute('aria-controls', 'today forecast');
+        btn.classList.add('history-btn', 'btn-history');
+
+        btm.setAttribute('data-search', searchHistory[i]);
+        btn.textContent = searchHistory[i];
+        searchHistoryContainer.append(btn);
+
+    }
+}
+
+
 // let fiveDayCard = "";
 // for (let i = 0; i < filteredWeek.length; i++) {
 //     const weekDate = new Date(filteredWeek[i].dt_txt).toLocaleDateString().split("")[0]
@@ -317,32 +243,9 @@ const searchWeather = (city) => {
 
 
 
-// Create function that will display searched cities as a button
-const addCity = () => {
-    const value = searchInput.value;
-    if (!value)
-        return;
-    const newCity = document.createElement("button");
-    newCity.innerText = value;
-    searchHistory.appendChild(newCity);
-    searchInput.value = "";
-
-    newCity.addEventListener("click", (event) => {
-        event.preventDefault();
-        let city = newCity.innerText;
-        searchWeather(city);
-    });
-}
 // cityButton.addEventListener("click", (event) => {
 //     event.preventDefault();
 
 // })
 
-
-searchButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    let city = searchInput.value
-    searchWeather(city)
-    addCity();
-})
 
