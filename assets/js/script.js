@@ -231,7 +231,19 @@ function initializeSearchHistory() {
 }
 initializeSearchHistory();
 
+// Validate the button value -- The buttons that will display after each user search; a user can click the displayed target of the div as it will become the event
+function handleSearchHistoryClick(e) {
+    if (!e.target.matches('btn-history')) {
+        return;
+    }
 
+    const btn = e.target;
+    const search = btn.getAttribute('data-search');
+    fetchGeo(search);
+}
+
+// Event listener for the container that holds the history buttons
+searchHistoryContainer.addEventListener('click', handleSearchHistoryClick);
 // let fiveDayCard = "";
 // for (let i = 0; i < filteredWeek.length; i++) {
 //     const weekDate = new Date(filteredWeek[i].dt_txt).toLocaleDateString().split("")[0]
