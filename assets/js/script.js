@@ -247,6 +247,6 @@ function handleSearchHistoryClick(e) {
 }
 
 // Event listener for the container that holds the history buttons
-searchHistoryContainer.addEventListener('submit', handleSearchHistoryClick);
+searchHistoryContainer.addEventListener('click', handleSearchHistoryClick);
 
 

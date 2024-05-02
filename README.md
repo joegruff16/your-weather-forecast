@@ -8,21 +8,30 @@
 
 ## Finished Product 
 
-![Your Weather Forecast](image.jpg)
+![Your Weather Forecast](./assets/images/your-weather-forecast.png)
 
+## Languages
+
+- ![Bootstap](./assets/images/bootstrap-logo.png)
+- ![HTML5](./assets/images/html5-logo.png)
+- ![JS](./assets/images/js-logo.png)
+- ![CSS](./assets/images/css-logo.png)
 
 ## Credits
 
 - Used this blog to get started with generating my API key and starter code to create variables to store OpenWeather's current weather data
     - **<https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys>**
+
+- Used icons from this website under usage
+    - **<https://icons8.com/>**
  
- - Used this website to pull weather icons
-    - **<https://icons8.com/icon/set/weather/color-glass>**
 ## License
 
 MIT see more details in repo
 
 ## Live Link
+
+<https://joegruff16.github.io/your-weather-forecast/>
 
 ## GitHub Repo
 
