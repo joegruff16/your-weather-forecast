@@ -45,7 +45,8 @@ function renderCurrentWeather(city, weather) {
     windEl.setAttribute('class', 'card-text');
     humidityEl.setAttribute('class', 'card-text');
 
-    heading.textContent = `${city} (${date})`;
+    heading.textContent = `(${city}) (${date})`;
+
     weatherImg.setAttribute('src', iconLink);
     weatherImg.setAttribute('alt', iconDesc);
     weatherImg.setAttribute('class', 'weather-img');
@@ -89,14 +90,14 @@ function displayForecast(dailyForecast) {
 // While the loop is iterating through the arrray of daily weather for the 5 day Forecast, the forecast card is called everytime and all the data of the card is made for that specific iteration day of the forecast
 function displayForecastCard(forecast) {
     // These are the variables with need from the WeatherAPI
-    const iconLink = `https://openweathermap.org/img/w/${weather.weather[0].icon}.png`;
-    const iconDesc = weather.weather[0].description || weather[0].main;
-    const temp = weather.main.temp;
-    const windSpeed = weather.wind.speed;
-    const humidity = weather.main.humidity;
+    const iconLink = `https://openweathermap.org/img/w/${forecast.weather[0].icon}.png`;
+    const iconDesc = forecast.weather[0].description;
+    const temp = forecast.main.temp;
+    const windSpeed = forecast.wind.speed;
+    const humidity = forecast.main.humidity;
 
     // Create card elements
-    const col = docusment.createElement('div');
+    const col = document.createElement('div');
     const card = document.createElement('div');
     const cardBody = document.createElement('div');
     const cardHeading = document.createElement('h5');
@@ -105,7 +106,7 @@ function displayForecastCard(forecast) {
     const windEl = document.createElement('p');
     const humidityEl = document.createElement('p');
 
-    col.apped(card);
+    col.append(card);
     card.append(cardBody);
     cardBody.append(cardHeading, weatherImg, tempEl, windEl, humidityEl);
 
@@ -129,10 +130,13 @@ function displayForecastCard(forecast) {
     forecastContainer.append(col);
 }
 
-// Tutot assisted a clearer way to show how the data is dispered for each function to display the current weather and forecast
+// Tutor assisted a clearer way to show how the data is dispered for each function to display the current weather and forecast
 function renderItems(city, data) {
     renderCurrentWeather(city, data.list[0], data.city.timezone);
+    console.log(city, data);
+    console.log(renderCurrentWeather);
     displayForecast(data.list);
+
 }
 
 // 2nd Fetch to get the weather
@@ -141,7 +145,7 @@ function fetchWeather(location) {
     let { lat, lon } = location;
     var city = location.none;
 
-    const queryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${APIKey}`;
+    const queryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}&units=imperial`;
 
     fetch(queryURL)
         .then(function (res) {
@@ -152,7 +156,7 @@ function fetchWeather(location) {
         })
         .catch(function (err) {
             console.error(err);
-        })
+        });
 }
 
 // Gather the input to get your first fetch the coordinates of the geo
@@ -203,7 +207,7 @@ function displaySearchHistory() {
         btn.setAttribute('aria-controls', 'today forecast');
         btn.classList.add('history-btn', 'btn-history');
 
-        btm.setAttribute('data-search', searchHistory[i]);
+        btn.setAttribute('data-search', searchHistory[i]);
         btn.textContent = searchHistory[i];
         searchHistoryContainer.append(btn);
 
@@ -243,42 +247,6 @@ function handleSearchHistoryClick(e) {
 }
 
 // Event listener for the container that holds the history buttons
-searchHistoryContainer.addEventListener('click', handleSearchHistoryClick);
-// let fiveDayCard = "";
-// for (let i = 0; i < filteredWeek.length; i++) {
-//     const weekDate = new Date(filteredWeek[i].dt_txt).toLocaleDateString().split("")[0]
-//     fiveDayCard += `
-//     <div class="weakly-weather-item">
-//       <p class="mb-0">${weekDate}</p>
-//       <p class="mb-0">Temp: ${filteredWeek[i].main.temp}</p>
-//       <p class="mb-0">Humidity: ${filteredWeek[i].main.humidity}</p>
-//       <p class="mb-0">Wind Speed: ${filteredWeek[i].wind.speed}</p>
-//     </div>
-//     `;
-//   }
-//   weeklyContainer.innerHTML = fiveDayCard;
-// Using the above URL we are going to create a new variable that will store the OpenWeather current weather data
-
-// This variable needs to be adjusted to store in the city variable that I created above
-// This indicates then that we need to use localStorage
-
-// What we will also want to do is specify state and country since other states and countries have the same city names
-
-// Country
-// https://api.openweathermap.org/data/2.5/weather?q={city name},{country code}&appid={API key}
-
-// State
-// https://api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid={API key}
-
-// We need to use reverse geocoding as the example URL shows that it must include lat and log coordinates
-// `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${limit}&appid=${APIKey}`;
-// https://openweathermap.org/api/geocoding-api
-
-
-
-// cityButton.addEventListener("click", (event) => {
-//     event.preventDefault();
-
-// })
+searchHistoryContainer.addEventListener('submit', handleSearchHistoryClick);
 
 

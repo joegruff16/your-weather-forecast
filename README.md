@@ -4,7 +4,12 @@
 
 ## Description
 
+Your Weather Forecast has a city search form that allows you to input of the city of your choice to get the 5 day weather forecast. After each city search the data is stored in local storage and displayed as a button within the form. When you click each button it should display the 5 day forecast of that particular city. 
+
 ## Finished Product 
+
+![Your Weather Forecast](image.jpg)
+
 
 ## Credits
 
