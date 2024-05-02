@@ -3,10 +3,15 @@ html {
     font-weight: 300;
 }
 
+body {
+    background-color: rgb(188, 186, 186);
+
+}
+
 /* Override Bootstrap Font */
 :root {
     --bs-font-sans-serif: font-family: Impact, Haettenschweiler, 'Arial Narrow Bold';
-    /* font-weight: 300; */
+    font-weight: 300;
 }
 
 /* Top Navbar Title centered */
